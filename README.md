@@ -236,4 +236,4 @@ For support and questions:
 
 ---
 
-**Built with ❤️ for the healthcare community** 
+**Built with ❤️ for the healthcare community**
