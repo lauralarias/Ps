@@ -1,0 +1,9 @@
+@echo off
+echo Adding files to git...
+git add .
+echo Committing changes...
+git commit -m "Temporarily remove Google OAuth to fix build"
+echo Pushing to GitHub...
+git push origin main
+echo Done!
+pause 
