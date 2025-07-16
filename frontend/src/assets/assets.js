@@ -58,28 +58,32 @@ export const assets = {
 
 export const specialityData = [
     {
-        speciality: 'General physician',
-        image: General_physician
+        speciality: 'Depression',
+        image: 'https://i.postimg.cc/sXkGCdCB/pexels-d-ng-nhan-324384-1510149.jpg'
     },
     {
-        speciality: 'Gynecologist',
-        image: Gynecologist
+        speciality: 'Anxiety',
+        image: 'https://i.postimg.cc/4N7Zh7tT/pexels-ryannielm-6505027.jpg'
     },
     {
-        speciality: 'Dermatologist',
-        image: Dermatologist
+        speciality: 'PTSD',
+        image: 'https://i.postimg.cc/cJm65gXb/ptsd.png'
     },
     {
-        speciality: 'Pediatricians',
-        image: Pediatricians
+        speciality: 'OCD',
+        image: 'https://i.postimg.cc/SRDxDwdY/ocd.png'
     },
     {
-        speciality: 'Neurologist',
-        image: Neurologist
+        speciality: 'ADHD',
+        image: 'https://i.postimg.cc/sgkJ7YP7/pexels-tara-winstead-8378728.jpg'
     },
     {
-        speciality: 'Gastroenterologist',
-        image: Gastroenterologist
+        speciality: 'Chronic Pain',
+        image: 'https://i.postimg.cc/FFYgWCP3/pexels-rdne-6670057.jpg'
+    },
+    {
+        speciality: 'Tinnitus',
+        image: 'https://i.postimg.cc/kGynFvt4/pexels-towfiqu-barbhuiya-3440682-12449967.jpg'
     },
 ]
 
