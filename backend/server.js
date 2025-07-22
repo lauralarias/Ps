@@ -16,7 +16,13 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
-app.use(cors({ origin: '*' }))
+app.use(cors({
+  origin: [
+    'https://psyencia-admin.onrender.com',
+    'https://psyencia-frontend.onrender.com' // add your frontend domain if needed
+  ],
+  credentials: true // if you use cookies or authentication
+}));
 
 app.use(
   session({
