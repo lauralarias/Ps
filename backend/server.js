@@ -4,7 +4,6 @@ import 'dotenv/config'
 import connectDB from "./config/mongodb.js"
 import connectCloudinary from "./config/cloudinary.js"
 import session from "express-session"
-import passport from "./passport.js"
 import userRouter from "./routes/userRoute.js"
 import doctorRouter from "./routes/doctorRoute.js"
 import adminRouter from "./routes/adminRoute.js"
@@ -26,22 +25,10 @@ app.use(
     saveUninitialized: false,
   })
 )
-app.use(passport.initialize())
-app.use(passport.session())
 
-// Google OAuth routes
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-)
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login",
-  })
-)
+
+
 
 // api endpoints
 app.use("/api/user", userRouter)
