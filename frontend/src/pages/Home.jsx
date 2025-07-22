@@ -60,7 +60,7 @@ const Home = () => {
               Discover the science behind Transcranial Magnetic Stimulation and how it can transform your mental health journey.
             </p>
           </div>
-          <TmsTreatmentTypes />
+      <TmsTreatmentTypes />
         </div>
       </section>
 

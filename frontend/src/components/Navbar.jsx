@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
@@ -7,6 +7,25 @@ const Navbar = () => {
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false)
   const { token, setToken, userData } = useContext(AppContext)
+  const [aboutDropdown, setAboutDropdown] = useState(false);
+  const aboutDropdownTimeout = useRef(null);
+  const aboutDropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(event.target)) {
+        setAboutDropdown(false);
+      }
+    }
+    if (aboutDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [aboutDropdown]);
 
   const logout = () => {
     localStorage.removeItem('token')
@@ -37,17 +56,84 @@ const Navbar = () => {
               Home
             </NavLink>
             <NavLink 
+              to="/tms" 
+              className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
+            >
+              TMS
+            </NavLink>
+            {/* TMS info Dropdown */}
+            <div className="relative group" tabIndex={0}>
+              <NavLink
+                to="/tms-info"
+                className="flex items-center text-gray-700 hover:text-[#2A5DCC] font-medium transition-colors duration-200 px-2 py-1 rounded-md"
+              >
+                TMS info
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </NavLink>
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl z-50 border border-gray-100 opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 group-hover:visible group-focus-within:visible invisible transition-all duration-200">
+                <NavLink to="/tms-procedure" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium rounded-t-xl transition-colors duration-150" onClick={() => setShowMenu(false)}>
+                  The TMS Procedure
+                </NavLink>
+                <NavLink to="/tms-side-effects" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium transition-colors duration-150" onClick={() => setShowMenu(false)}>
+                  Side Effects and Benefits
+                </NavLink>
+                <NavLink to="/tms-science" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium transition-colors duration-150" onClick={() => setShowMenu(false)}>
+                  Conditions TMS Treats
+                </NavLink>
+                <NavLink to="/tms-candidates" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium rounded-b-xl transition-colors duration-150" onClick={() => setShowMenu(false)}>
+                  TMS Candidates
+                </NavLink>
+              </div>
+            </div>
+            <NavLink 
               to="/doctors" 
               className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
             >
-              Our Team
+              Doctors
             </NavLink>
-            <NavLink 
-              to="/about" 
-              className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
-            >
-              About
-            </NavLink>
+            {/* About Us Dropdown */}
+            <div className="relative group" ref={aboutDropdownRef} tabIndex={0}>
+              <NavLink
+                to="/aboutus"
+                onMouseEnter={() => {
+                  if (aboutDropdownTimeout.current) clearTimeout(aboutDropdownTimeout.current);
+                  setAboutDropdown(true);
+                }}
+                onMouseLeave={() => {
+                  aboutDropdownTimeout.current = setTimeout(() => setAboutDropdown(false), 3000);
+                }}
+                className="flex items-center text-gray-700 hover:text-[#2A5DCC] font-medium transition-colors duration-200 px-2 py-1 rounded-md"
+              >
+                About Us
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </NavLink>
+              {aboutDropdown && (
+                <div
+                  onMouseEnter={() => {
+                    if (aboutDropdownTimeout.current) clearTimeout(aboutDropdownTimeout.current);
+                    setAboutDropdown(true);
+                  }}
+                  onMouseLeave={() => {
+                    aboutDropdownTimeout.current = setTimeout(() => setAboutDropdown(false), 3000);
+                  }}
+                  className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50 border border-gray-100"
+                >
+                  <NavLink to="/location" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium rounded-t-xl transition-colors duration-150" onClick={() => setAboutDropdown(false)}>
+                    Our Location
+                  </NavLink>
+                  <NavLink to="/our-team" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium transition-colors duration-150" onClick={() => setAboutDropdown(false)}>
+                    Meet Our Team
+                  </NavLink>
+                  <NavLink to="/why-choose-us" className="block px-6 py-3 text-gray-700 hover:bg-[#e0eaff] hover:text-[#2A5DCC] font-medium rounded-b-xl transition-colors duration-150" onClick={() => setAboutDropdown(false)}>
+                    Why Choose Us
+                  </NavLink>
+                </div>
+              )}
+            </div>
             <NavLink 
               to="/services" 
               className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
@@ -133,19 +219,65 @@ const Navbar = () => {
                 Home
               </NavLink>
               <NavLink 
+                to="/tms" 
+                onClick={() => setShowMenu(false)}
+                className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
+              >
+                TMS
+              </NavLink>
+              <NavLink 
+                to="/tms-info" 
+                onClick={() => setShowMenu(false)}
+                className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
+              >
+                TMS Info
+              </NavLink>
+              <NavLink 
+                to="/tms-candidates" 
+                onClick={() => setShowMenu(false)}
+                className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
+              >
+                TMS Candidates
+              </NavLink>
+              <NavLink 
                 to="/doctors" 
+                onClick={() => setShowMenu(false)}
+                className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
+              >
+                Doctors
+              </NavLink>
+              <NavLink 
+                to="/our-team" 
                 onClick={() => setShowMenu(false)}
                 className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
               >
                 Our Team
               </NavLink>
-              <NavLink 
-                to="/about" 
-                onClick={() => setShowMenu(false)}
-                className="text-gray-700 hover:text-primary font-medium transition-colors duration-200"
-              >
-                About
-              </NavLink>
+              {/* Mobile About Us Dropdown */}
+              <div className="md:hidden">
+                <button
+                  onClick={() => { setAboutDropdown(!aboutDropdown); if (!aboutDropdown) navigate('/aboutus'); }}
+                  className="flex items-center w-full text-gray-700 hover:text-primary font-medium transition-colors duration-200 focus:outline-none"
+                >
+                  About Us
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {aboutDropdown && (
+                  <div className="pl-4 border-l-2 border-[#ff8b7b] mt-2">
+                    <NavLink to="/location" onClick={() => { setShowMenu(false); setAboutDropdown(false); }} className="flex items-center py-2 text-gray-700 font-medium">
+                      <span className="text-[#ff8b7b] mr-2">&#8250;</span> Our Location
+                    </NavLink>
+                    <NavLink to="/our-team" onClick={() => { setShowMenu(false); setAboutDropdown(false); }} className="flex items-center py-2 text-gray-700 font-medium">
+                      <span className="text-[#ff8b7b] mr-2">&#8250;</span> Meet Our Team
+                    </NavLink>
+                    <NavLink to="/why-choose-us" onClick={() => { setShowMenu(false); setAboutDropdown(false); }} className="flex items-center py-2 text-gray-700 font-medium">
+                      <span className="text-[#ff8b7b] mr-2">&#8250;</span> Why Choose Us
+                    </NavLink>
+                  </div>
+                )}
+              </div>
               <NavLink 
                 to="/services" 
                 onClick={() => setShowMenu(false)}

@@ -229,7 +229,7 @@ const Intro = () => {
                             ? 'bg-blue-400' 
                             : 'bg-blue-300/50 hover:bg-blue-300/75'
                         }`}
-                      />
+            />
                     ))}
                   </div>
                 </div>

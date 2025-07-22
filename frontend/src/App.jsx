@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Doctors from './pages/Doctors'
 import Login from './pages/Login'
-import About from './pages/About'
 import Contact from './pages/Contact'
 import Appointment from './pages/Appointment'
 import MyAppointments from './pages/MyAppointments'
@@ -15,6 +14,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import Verify from './pages/Verify'
 import FAQ from './pages/FAQ'
 import Services from './pages/Services'
+import OurTeam from './pages/OurTeam'
+import Tms from './pages/TMS'
+import AboutUs from './pages/AboutUs'
+import Location from './pages/Location'
+import WhyChooseUs from './pages/WhyChooseUs'
+import TmsInfo from './pages/TmsInfo'
+import TmsProcedure from './pages/TmsProcedure'
+import TmsSideEffects from './pages/TmsSideEffects'
+import TmsScience from './pages/TmsScience'
+import TmsCandidates from './pages/TmsCandidates'
 
 const App = () => {
   return (
@@ -53,7 +62,6 @@ const App = () => {
         <Route path='/doctors' element={<Doctors />} />
         <Route path='/doctors/:speciality' element={<Doctors />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/about' element={<About />} />
         <Route path='/services' element={<Services />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/faq' element={<FAQ />} />
@@ -61,6 +69,16 @@ const App = () => {
         <Route path='/my-appointments' element={<MyAppointments />} />
         <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/verify' element={<Verify />} />
+        <Route path='/our-team' element={<OurTeam />} />
+        <Route path='/tms' element={<Tms />} />
+        <Route path='/aboutus' element={<AboutUs />} />
+        <Route path='/location' element={<Location />} />
+        <Route path='/why-choose-us' element={<WhyChooseUs />} />
+        <Route path='/tms-info' element={<TmsInfo />} />
+        <Route path='/tms-procedure' element={<TmsProcedure />} />
+        <Route path='/tms-side-effects' element={<TmsSideEffects />} />
+        <Route path='/tms-science' element={<TmsScience />} />
+        <Route path='/tms-candidates' element={<TmsCandidates />} />
       </Routes>
       </div>
       <Footer />
