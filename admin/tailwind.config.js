@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'sans': ['Roboto', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+      },
       gridTemplateColumns:{
         'auto':'repeat(auto-fill, minmax(200px, 1fr))'
       },

@@ -19,7 +19,10 @@ app.use(express.json())
 app.use(cors({
   origin: [
     'https://psyencia-admin.onrender.com',
-    'https://psyencia-frontend.onrender.com' // add your frontend domain if needed
+    'https://psyencia-frontend.onrender.com',
+    'http://localhost:5173', // frontend development
+    'http://localhost:5174', // admin development
+    'http://localhost:3000'  // alternative admin port
   ],
   credentials: true // if you use cookies or authentication
 }));
